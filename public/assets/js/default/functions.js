@@ -21,6 +21,7 @@ var drift = {
         enabledDrawer: false,
         init: function () {
             var sidebar = this;
+            console.log("SIE BAR", sidebar)
 
             if (this.drawerRef.hasClass('dt-drawer')) {
                 this.enabledDrawer = true;

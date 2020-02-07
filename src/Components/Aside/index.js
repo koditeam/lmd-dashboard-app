@@ -16,39 +16,22 @@ function Aside() {
                             <i className="icon icon-dashboard icon-fw icon-lg"></i>
                             <span className="dt-side-nav__text">dashboard</span>
                         </a>
-
-                        <ul className="dt-side-nav__sub-menu">
-                            <li className="dt-side-nav__item">
-                                <a href="index.html" className="dt-side-nav__link">
-                                    <i className="icon icon-listing-dbrd icon-fw icon-lg"></i>
-                                    <span className="dt-side-nav__text">Listing</span>
-                                </a>
-                            </li>
-
-                            <li className="dt-side-nav__item">
-                                <a href="dashboard-real-estate.html" className="dt-side-nav__link">
-                                    <i className="icon icon-company icon-fw icon-lg"></i>
-                                    <span className="dt-side-nav__text">Real Estate</span>
-                                </a>
-                            </li>
-
-                            <li className="dt-side-nav__item">
-                                <a href="dashboard-crypto.html" className="dt-side-nav__link">
-                                    <i className="icon icon-crypto icon-fw icon-lg"></i>
-                                    <span className="dt-side-nav__text">Crypto</span>
-                                </a>
-                            </li>
-
-                            <li className="dt-side-nav__item">
-                                <a href="dashboard-crm.html" className="dt-side-nav__link">
-                                    <i className="icon icon-crm icon-fw icon-lg"></i>
-                                    <span className="dt-side-nav__text">Crm</span>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
-
-
+                    <li className="dt-side-nav__item dt-side-nav__header">
+                        <span className="dt-side-nav__text">IR Pages</span>
+                    </li>
+                    <li className="dt-side-nav__item">
+                        <a href="app-task-manager.html" className="dt-side-nav__link">
+                            <i className="icon icon-task-manager icon-fw icon-lg"></i>
+                            <span className="dt-side-nav__text">Demo1</span>
+                        </a>
+                    </li>
+                    <li className="dt-side-nav__item">
+                        <a href="app-task-manager.html" className="dt-side-nav__link">
+                            <i className="icon icon-task-manager icon-fw icon-lg"></i>
+                            <span className="dt-side-nav__text">Demo2</span>
+                        </a>
+                    </li>
                 </ul>
 
             </div>
