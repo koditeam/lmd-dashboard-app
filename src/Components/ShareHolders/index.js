@@ -1,23 +1,30 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
 
-
 let current_datetime = new Date()
-let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate()
+let formatted_date = current_datetime.getFullYear() + "-" + ('0' + current_datetime.getMonth() + 1).slice(-2) + "-" + ('0' + current_datetime.getDate()).slice(-2)
 const SHAREHOLDERS = `https://api.livemarketdata.com/v1/market_data/v1/ICEAIR/shareholders?date=${formatted_date}`;
 
 function ShareHolders() {
     let [shareholders, setShareholders] = useState([]);
-    axios
-        .get(SHAREHOLDERS)
-        .then(res => {
-            setShareholders(res.data)
-        })
-        .catch(err => {
-            console.error('Failed: ', err)
-        });
-    console.log("THE DATA", shareholders);
+
+    useEffect(()=>{
+        axios
+            .get(SHAREHOLDERS, {
+                headers:{
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNtYXJpQGxpdmVtYXJrZXRkYXRhLmNvbSIsInN1YnNjcmlwdGlvbnMiOlsib214LWVxLTMiLCJLTW9iaWxlIiwib214LWZpLTMiLCJLUFJPUCIsIlF1ZXN0b3JCYXNpY1ZpZXciXSwiaXNzIjoidXJuOmxpdmVtYXJrZXRkYXRhLmNvbTp1c2VyX3N5c3RlbSIsInN5c3RlbSI6eyJzY29wZXMiOlsic3RhdGlzdGljcyIsIm1hcmtldF9mZWVkIiwicmlza19jaGVjayIsInN1YnNjcmlwdGlvbnMiLCJyZXN0X2FwaSIsInJlc3RfYm9uZHNfY2FsYyIsInJlc3Rfc3RhdGljX2RhdGEiLCJyZXN0X3JlYWx0aW1lX21hcmtldGRhdGEiLCJyZXN0X2NvbXBhbnlfcmVwb3J0cyJdLCJkZWxheWVkIjpmYWxzZSwiaWQiOiJrb2RpYWtfcHJvIiwidGltZW91dCI6ODY0MDAsIm5hbWUiOiJLT0RJQUsgUHJvIn0sImV4cCI6MTU4MTIwMDc4NywiaWF0IjoxNTgxMTE0Mzg3fQ.70hXYkNLn_ChAKQyvolgKjDnWiVXdUnwbwT6za-CTyU'
+                }
+            })
+            .then(res => {
+                setShareholders(res.data)
+                console.log("THE DATA", res.data);
+            })
+            .catch(err => {
+                console.error('Failed: ', err)
+            });
+    }, [])
+
     return(
         <div className="table-responsive">
             <table className="table mb-0">
@@ -29,36 +36,17 @@ function ShareHolders() {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Samherji Holding ehf.</td>
-                        <td>50.600.000</td>
-                        <td>27,1%</td>
-                    </tr>
-                    <tr>
-                        <td>Global Macro Portfolio</td>
-                        <td>4.064.445</td>
-                        <td>2,2%</td>
-                    </tr>
-                    <tr>
-                        <td>Almenni lífeyrissjóðurinn</td>
-                        <td>3.611.558</td>
-                        <td>1,9%</td>
-                    </tr>
-                    <tr>
-                        <td>Landsbankinn hf.</td>
-                        <td>1.195.685</td>
-                        <td>0,6%</td>
-                    </tr>
-                    <tr>
-                        <td>Kvika banki hf.</td>
-                        <td>2.055.339</td>
-                        <td>1,1%</td>
-                    </tr>
-                    <tr>
-                        <td>Sjóvá-Almennar tryggingar hf.</td>
-                        <td>1.369.265</td>
-                        <td>0,7%</td>
-                    </tr>
+
+                    {
+                        shareholders && shareholders.map((shareholder, index)=>
+                            <tr key={index}>
+                                <td>{shareholder.Owner}</td>
+                                <td>{shareholder.ClosingQuantity.toLocaleString('en')}</td>
+                                <td>{(shareholder.Percentage * 100).toFixed(2)}%</td>
+                            </tr>
+                        )}
+
+
                     </tbody>
             </table>
         </div>
